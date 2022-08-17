@@ -15,7 +15,7 @@ class ImageFolder(data.Dataset):
 		
 		# GT : Ground Truth
 		#self.GT_paths = root[:-1]+'_GT/'
-		self.GT_paths = os.path.join(root, 'gt')
+		self.GT_paths = os.path.join(root, 'mask')
 		self.image_paths = list(map(lambda x: os.path.join(root, x), os.listdir(root)))
 		self.image_size = image_size
 		self.mode = mode
