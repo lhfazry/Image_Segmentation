@@ -9,12 +9,13 @@ from torchvision.transforms import functional as F
 from PIL import Image
 
 class ImageFolder(data.Dataset):
-	def __init__(self, root,image_size=224,mode='train',augmentation_prob=0.4):
+	def __init__(self, root, image_size=224, mode='train',augmentation_prob=0.4):
 		"""Initializes image paths and preprocessing module."""
-		self.root = root
+		self.root = os.path.join(root, 'data')
 		
 		# GT : Ground Truth
-		self.GT_paths = root[:-1]+'_GT/'
+		#self.GT_paths = root[:-1]+'_GT/'
+		self.GT_paths = os.path.join(root, 'gt')
 		self.image_paths = list(map(lambda x: os.path.join(root, x), os.listdir(root)))
 		self.image_size = image_size
 		self.mode = mode
@@ -25,8 +26,9 @@ class ImageFolder(data.Dataset):
 	def __getitem__(self, index):
 		"""Reads an image from a file and preprocesses it and returns."""
 		image_path = self.image_paths[index]
-		filename = image_path.split('_')[-1][:-len(".jpg")]
-		GT_path = self.GT_paths + 'ISIC_' + filename + '_segmentation.png'
+		filename = image_path.split('_')[-1][:-len(".png")]
+		#GT_path = self.GT_paths + 'ISIC_' + filename + '_segmentation.png'
+		GT_path = self.GT_paths + filename + ".png"
 
 		image = Image.open(image_path)
 		GT = Image.open(GT_path)

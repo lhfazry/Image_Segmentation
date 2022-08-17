@@ -14,7 +14,6 @@ def rm_mkdir(dir_path):
     print('Create path - %s'%dir_path)
 
 def main(config):
-
     rm_mkdir(config.train_path)
     rm_mkdir(config.train_GT_path)
     rm_mkdir(config.valid_path)
