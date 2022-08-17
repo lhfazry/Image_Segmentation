@@ -144,9 +144,9 @@ class Solver(object):
 					GT = GT.to(self.device)
 
 					# SR : Segmentation Result
-					SR = self.unet(images)
-					SR_probs = torch.sigmoid(SR)
-					SR_flat = SR_probs.view(SR_probs.size(0),-1)
+					SR = torch.sigmoid(self.unet(images))
+					#SR_probs = torch.sigmoid(SR)
+					SR_flat = SR.view(SR.size(0),-1)
 
 					GT_flat = GT.view(GT.size(0),-1)
 					loss = self.criterion(SR_flat,GT_flat)
@@ -207,7 +207,7 @@ class Solver(object):
 
 					images = images.to(self.device)
 					GT = GT.to(self.device)
-					SR = F.sigmoid(self.unet(images))
+					SR = torch.sigmoid(self.unet(images))
 					acc += get_accuracy(SR,GT)
 					SE += get_sensitivity(SR,GT)
 					SP += get_specificity(SR,GT)
@@ -267,11 +267,11 @@ class Solver(object):
 			JS = 0.		# Jaccard Similarity
 			DC = 0.		# Dice Coefficient
 			length=0
-			for i, (images, GT) in enumerate(self.valid_loader):
+			for i, (images, GT) in enumerate(self.test_loader):
 
 				images = images.to(self.device)
 				GT = GT.to(self.device)
-				SR = F.sigmoid(self.unet(images))
+				SR = torch.sigmoid(self.unet(images))
 				acc += get_accuracy(SR,GT)
 				SE += get_sensitivity(SR,GT)
 				SP += get_specificity(SR,GT)
