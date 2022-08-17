@@ -83,16 +83,16 @@ class ImageFolder(data.Dataset):
 
 
 		Transform.append(T.Resize((int(256*aspect_ratio)-int(256*aspect_ratio)%16,256)))
-		#Transform.append(T.ToTensor())
+		Transform.append(T.ToTensor())
 		Transform = T.Compose(Transform)
 		
 		image = Transform(image)
-		GT = torch.as_tensor(np.array(GT), dtype=torch.int64)#np.array(Transform(GT))
+		GT = Transform(GT) #torch.as_tensor(np.array(GT), dtype=torch.int64)#np.array(Transform(GT))
 		
 
 		Norm_ = T.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-		toTensor = T.ToTensor()
-		image = Norm_(toTensor(image))
+		#toTensor = T.ToTensor()
+		image = Norm_(image)
 
 		return image, GT
 
