@@ -124,7 +124,7 @@ class Solver(object):
 			best_unet_score = 0.
 			
 			for epoch in range(self.num_epochs):
-				self.optimizer.zero_grad()
+				#self.optimizer.zero_grad()
 				self.unet.train(True)
 				epoch_loss = 0
 				
@@ -156,6 +156,7 @@ class Solver(object):
 					self.reset_grad()
 					loss.backward()
 					self.optimizer.step()
+					self.optimizer.zero_grad(set_to_none=True)
 
 					acc += get_accuracy(SR,GT)
 					SE += get_sensitivity(SR,GT)
