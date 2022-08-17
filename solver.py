@@ -124,7 +124,7 @@ class Solver(object):
 			best_unet_score = 0.
 			
 			for epoch in range(self.num_epochs):
-
+				self.optimizer.zero_grad()
 				self.unet.train(True)
 				epoch_loss = 0
 				
