@@ -83,14 +83,14 @@ class ImageFolder(data.Dataset):
 
 
 		Transform.append(T.Resize((int(256*aspect_ratio)-int(256*aspect_ratio)%16,256)))
-		Transform.append(T.ToTensor())
+		#Transform.append(T.ToTensor())
 		Transform = T.Compose(Transform)
 		
 		image = Transform(image)
 		GT = Transform(GT)
 
 		Norm_ = T.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-		image = Norm_(image)
+		image = Norm_(T.ToTensor(image))
 
 		return image, GT
 
@@ -101,10 +101,15 @@ class ImageFolder(data.Dataset):
 def get_loader(image_path, image_size, batch_size, num_workers=2, mode='train',augmentation_prob=0.4):
 	"""Builds and returns Dataloader."""
 	
+	shuffle = False
+
+	if mode == 'train':
+		shuffle = True
+
 	dataset = ImageFolder(root = image_path, image_size =image_size, mode=mode,augmentation_prob=augmentation_prob)
 	data_loader = data.DataLoader(dataset=dataset,
 								  batch_size=batch_size,
-								  shuffle=True,
+								  shuffle=shuffle,
 								  num_workers=num_workers, 
 								  drop_last=True)
 	return data_loader

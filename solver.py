@@ -153,7 +153,7 @@ class Solver(object):
 					epoch_loss += loss.item()
 
 					# Backprop + optimize
-					self.reset_grad()
+					#self.reset_grad()
 					loss.backward()
 					self.optimizer.step()
 					self.optimizer.zero_grad(set_to_none=True)
