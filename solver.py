@@ -145,7 +145,7 @@ class Solver(object):
 
 					# SR : Segmentation Result
 					SR = self.unet(images)
-					SR_probs = F.sigmoid(SR)
+					SR_probs = torch.sigmoid(SR)
 					SR_flat = SR_probs.view(SR_probs.size(0),-1)
 
 					GT_flat = GT.view(GT.size(0),-1)
