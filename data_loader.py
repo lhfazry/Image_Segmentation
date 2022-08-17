@@ -91,6 +91,7 @@ class ImageFolder(data.Dataset):
 		
 
 		Norm_ = T.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+		
 		#toTensor = T.ToTensor()
 		image = Norm_(image)
 
