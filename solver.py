@@ -147,8 +147,8 @@ class Solver(object):
 					SR = torch.sigmoid(self.unet(images))
 					#SR_probs = torch.sigmoid(SR)
 					SR_flat = SR.view(SR.size(0),-1)
-
 					GT_flat = GT.view(GT.size(0),-1)
+					
 					loss = self.criterion(SR_flat,GT_flat)
 					epoch_loss += loss.item()
 
