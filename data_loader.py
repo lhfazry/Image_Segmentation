@@ -90,7 +90,8 @@ class ImageFolder(data.Dataset):
 		GT = Transform(GT)
 
 		Norm_ = T.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-		image = Norm_(T.ToTensor(image))
+		toTensor = T.ToTensor()
+		image = Norm_(toTensor(image))
 
 		return image, GT
 
