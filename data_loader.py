@@ -105,5 +105,6 @@ def get_loader(image_path, image_size, batch_size, num_workers=2, mode='train',a
 	data_loader = data.DataLoader(dataset=dataset,
 								  batch_size=batch_size,
 								  shuffle=True,
-								  num_workers=num_workers)
+								  num_workers=num_workers, 
+								  drop_last=True)
 	return data_loader
