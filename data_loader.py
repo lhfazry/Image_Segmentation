@@ -87,7 +87,8 @@ class ImageFolder(data.Dataset):
 		Transform = T.Compose(Transform)
 		
 		image = Transform(image)
-		GT = np.array(Transform(GT))
+		GT = torch.as_tensor(np.array(GT), dtype=torch.float32)#np.array(Transform(GT))
+		
 
 		Norm_ = T.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 		toTensor = T.ToTensor()
