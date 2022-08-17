@@ -12,11 +12,12 @@ class ImageFolder(data.Dataset):
 	def __init__(self, root, image_size=224, mode='train',augmentation_prob=0.4):
 		"""Initializes image paths and preprocessing module."""
 		self.root = os.path.join(root, 'data')
+		gt_path = os.path.join(root, 'mask')
 		
 		# GT : Ground Truth
 		#self.GT_paths = root[:-1]+'_GT/'
-		self.GT_paths = os.path.join(root, 'mask')
 		self.image_paths = list(map(lambda x: os.path.join(self.root, x), os.listdir(self.root)))
+		self.GT_paths = list(map(lambda x: os.path.join(gt_path, x), os.listdir(gt_path)))
 		self.image_size = image_size
 		self.mode = mode
 		self.RotationDegree = [0,90,180,270]
@@ -28,7 +29,8 @@ class ImageFolder(data.Dataset):
 		image_path = self.image_paths[index]
 		filename = image_path.split('_')[-1][:-len(".png")]
 		#GT_path = self.GT_paths + 'ISIC_' + filename + '_segmentation.png'
-		GT_path = self.GT_paths + filename + ".png"
+		#GT_path = self.GT_paths + filename + ".png"
+		GT_path = self.GT_paths[index]
 
 		image = Image.open(image_path)
 		GT = Image.open(GT_path)
